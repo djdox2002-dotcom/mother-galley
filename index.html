@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>어머니의 추억 갤러리</title>
+    <title>아들들과 함께한 일본여행</title>
     <style>
         * {
             margin: 0;
@@ -268,8 +268,11 @@
         <img src="" alt="enlarged" id="lightbox-img">
     </div>
     
+    <audio id="bgMusic" loop autoplay>
+        <source src="images/bg-music.mp3" type="audio/mpeg">
+    </audio>
+    
     <script>
-        // 갤러리 데이터 - 27장 사진
         const photos = [
             {"src": "images/photo001.jpg", "title": "추억 1", "date": "2026.06"},
             {"src": "images/photo002.jpg", "title": "추억 2", "date": "2026.06"},
@@ -336,6 +339,26 @@
                 closeLightbox();
             }
         });
+        
+        // 자동 재생 시도
+        const bgMusic = document.getElementById('bgMusic');
+        bgMusic.volume = 0.5;
+        
+        function tryPlayMusic() {
+            bgMusic.play().then(() => {
+                console.log('Music started');
+            }).catch(err => {
+                console.log('Autoplay blocked, waiting for interaction');
+            });
+        }
+        
+        // 즉시 시도
+        tryPlayMusic();
+        
+        // 사용자 상호작용 시 재생
+        document.addEventListener('click', tryPlayMusic, { once: true });
+        document.addEventListener('touchstart', tryPlayMusic, { once: true });
+        document.addEventListener('scroll', tryPlayMusic, { once: true });
         
         renderGallery();
     </script>
