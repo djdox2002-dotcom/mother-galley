@@ -268,14 +268,6 @@
         <img src="" alt="enlarged" id="lightbox-img">
     </div>
     
-    <div id="musicHint" style="display:none; position:fixed; top:20px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.75); color:white; padding:12px 24px; border-radius:50px; z-index:200; font-size:0.95rem; backdrop-filter:blur(10px);">
-        🎵 배경음악을 듣으려면 화면을 터치하세요
-    </div>
-    
-    <audio id="bgMusic" loop autoplay>
-        <source src="images/bg-music.mp3" type="audio/mpeg">
-    </audio>
-    
     <script>
         const photos = [
             {"src": "images/photo001.jpg", "title": "추억 1", "date": "2026.06"},
@@ -343,32 +335,6 @@
                 closeLightbox();
             }
         });
-        
-        // 자동 재생 시도
-        const bgMusic = document.getElementById('bgMusic');
-        bgMusic.volume = 0.5;
-        
-        function tryPlayMusic() {
-            bgMusic.play().then(() => {
-                const hint = document.getElementById('musicHint');
-                if (hint) hint.style.display = 'none';
-            }).catch(() => {
-                const hint = document.getElementById('musicHint');
-                if (hint) hint.style.display = 'block';
-            });
-        }
-        
-        // 즉시 시도
-        tryPlayMusic();
-        
-        // 사용자 상호작용 시 재생
-        const playHandler = () => {
-            tryPlayMusic();
-            document.removeEventListener('click', playHandler);
-            document.removeEventListener('touchstart', playHandler);
-        };
-        document.addEventListener('click', playHandler);
-        document.addEventListener('touchstart', playHandler);
         
         renderGallery();
     </script>
